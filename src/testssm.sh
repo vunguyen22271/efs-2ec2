@@ -1,7 +1,8 @@
+script=$(cat myscript.ps1)
 response=$(aws ssm send-command \
     --document-name "AWS-RunPowerShellScript" \
     --document-version "1" \
-    --parameters '{"workingDirectory":[""],"executionTimeout":["3600"],"commands":["ipcoig"]}' \
+    --parameters '{"workingDirectory":[""],"executionTimeout":["3600"],"commands":["'"$script"'"]}' \
     --timeout-seconds 600 \
     --max-concurrency "50" \
     --max-errors "0" \
