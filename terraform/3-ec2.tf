@@ -16,7 +16,7 @@
 # }
 
 resource "aws_instance" "vm_1" {
-  ami           = "ami-04d7825822fe66af3"
+  ami           = "ami-06cc514f1012a7431" # windows server 2019
   instance_type = "t3.micro"
   key_name      = "vockey"
   get_password_data = true
@@ -31,7 +31,7 @@ resource "aws_instance" "vm_1" {
 }
 
 resource "aws_instance" "vm_2" {
-  ami           = "ami-04d7825822fe66af3"
+  ami           = "ami-06cc514f1012a7431" # windows server 2019
   instance_type = "t3.micro"
   key_name      = "vockey"
   get_password_data = true

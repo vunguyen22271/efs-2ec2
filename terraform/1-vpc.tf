@@ -60,10 +60,26 @@ resource "aws_security_group" "sg_1" {
   }
 
   ingress {
+    description = "135 from anywhere"
+    from_port   = 135
+    to_port     = 135
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     description = "RDP from anywhere"
     from_port   = 445
     to_port     = 445
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Ping from anywhere"
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
