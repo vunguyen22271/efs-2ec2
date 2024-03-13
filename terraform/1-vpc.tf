@@ -42,6 +42,14 @@ resource "aws_security_group" "sg_1" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  
+  ingress {
+    description = "443 from anywhere"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   ingress {
     description = "SSH from anywhere"
@@ -55,6 +63,22 @@ resource "aws_security_group" "sg_1" {
     description = "RDP from anywhere"
     from_port   = 3389
     to_port     = 3389
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "WinRM from anywhere"
+    from_port   = 5985
+    to_port     = 5985
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "WinRM from anywhere"
+    from_port   = 5986
+    to_port     = 5986
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
