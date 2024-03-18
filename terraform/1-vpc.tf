@@ -60,6 +60,14 @@ resource "aws_security_group" "sg_1" {
   }
 
   ingress {
+    description = "8000 from anywhere"
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
     description = "RDP from anywhere"
     from_port   = 3389
     to_port     = 3389
