@@ -17,33 +17,36 @@
 
 resource "aws_instance" "vm_1" {
   ami           = "ami-06cc514f1012a7431" # windows server 2019
-  instance_type = "t3.micro"
-  key_name      = "vockey"
+  instance_type = "t3.small"
+  key_name      = "my-key"
   get_password_data = true
   vpc_security_group_ids = ["${aws_security_group.sg_1.id}"]
   subnet_id              = aws_subnet.subnet_1.id
 
   iam_instance_profile = aws_iam_instance_profile.profile.name
+
+  # user_data = file("vm_runner.txt")
+  user_data = base64encode(file("${"vm_runner.txt"}"))
 
   tags = {
     Name = "win_1"
   }
 }
 
-resource "aws_instance" "vm_2" {
-  ami           = "ami-06cc514f1012a7431" # windows server 2019
-  instance_type = "t3.micro"
-  key_name      = "vockey"
-  get_password_data = true
-  vpc_security_group_ids = ["${aws_security_group.sg_1.id}"]
-  subnet_id              = aws_subnet.subnet_1.id
+# resource "aws_instance" "vm_2" {
+#   ami           = "ami-06cc514f1012a7431" # windows server 2019
+#   instance_type = "t3.micro"
+#   key_name      = "vockey"
+#   get_password_data = true
+#   vpc_security_group_ids = ["${aws_security_group.sg_1.id}"]
+#   subnet_id              = aws_subnet.subnet_1.id
 
-  iam_instance_profile = aws_iam_instance_profile.profile.name
+#   iam_instance_profile = aws_iam_instance_profile.profile.name
 
-  tags = {
-    Name = "win_2"
-  }
-}
+#   tags = {
+#     Name = "win_2"
+#   }
+# }
 
 # resource "aws_ebs_volume" "ebs_volume" {
 #   availability_zone    = aws_instance.vm_1.availability_zone

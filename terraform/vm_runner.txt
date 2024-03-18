@@ -1,0 +1,30 @@
+<powershell>
+# cd C:\; mkdir actions-runner; cd actions-runner
+
+# Invoke-WebRequest -Uri https://github.com/actions/runner/releases/download/v2.314.1/actions-runner-win-x64-2.314.1.zip -OutFile actions-runner-win-x64-2.314.1.zip
+
+# Add-Type -AssemblyName System.IO.Compression.FileSystem ; [System.IO.Compression.ZipFile]::ExtractToDirectory("$PWD/actions-runner-win-x64-2.314.1.zip", "$PWD")
+
+# Install SDK
+$ProgressPreference = 'SilentlyContinue'
+$url ="https://download.visualstudio.microsoft.com/download/pr/68ff350e-8b8d-4249-8678-570d5025f8e3/2178c63b5572b6016647525b53aa75b5/dotnet-sdk-6.0.420-win-x64.exe"
+$output = "C:\dotnet-sdk-6.0.420-win-x64.exe"
+Invoke-WebRequest -Uri $url -OutFile $output
+C:\.\dotnet-sdk-6.0.420-win-x64.exe /install /quiet /norestart
+
+# Specify the path to the .NET Core SDK
+$dotnetPath = "C:\Program Files\dotnet"
+
+# Add the .NET Core SDK to the system PATH
+setx PATH "$env:PATH;$dotnetPath"
+
+# Install Hosting
+$url = "https://download.visualstudio.microsoft.com/download/pr/c9277ae6-1bd2-47d6-aa9f-0409791e4a22/ce685479743a5567f43913362237e320/dotnet-hosting-6.0.28-win.exe"
+$output = "C:\dotnet-hosting-6.0.28-win.exe"
+Invoke-WebRequest -Uri $url -OutFile $output
+C:\.\dotnet-hosting-6.0.28-win.exe /install /quiet /norestart
+
+Enable-WindowsOptionalFeature -online -featurename IIS-WebServerRole
+
+
+</powershell>
